@@ -1,3 +1,26 @@
+/*
+Author: Erica Peharda
+Date: September 9th, 2015
+Comments: I chose to write this code in JavaScript.  I have included comments to explain my thought process throughout most of the code but would be happy to clarify any questions when I walk through the file with other developers.  Thank you for your time and consideration.
+
+Assumptions:
+	1) We are accepting numbers in US dollar format without commas.
+	2) I will go as far as the hundred million place value.  Assuming this situation is for creating personalized checks and above a million would likely be a rare case- but can easily be added if necessary.
+*/
+
+
+/*
+Exercise 1
+Write some code that will accept an amount and convert it to the appropriate string representation.
+					
+Example: 
+Convert 2523.04 
+     to "Two thousand five hundred twenty-three and 04/100 dollars"
+*/
+
+
+/*I chose a closure so that I could avoid the global namespace and have some variables that 
+would be accessible to just my function*/
 var moneyWords = function (){
 
 		//I'm using an object for the languages to use for the number name syntax
@@ -23,15 +46,7 @@ var moneyWords = function (){
 			"16": "sixteen",
 			"17": "seventeen",
 			"18": "eighteen",
-			"19": "nineteen",
-			/*"20": "twenty",
-			"30": "thirty",
-			"40": "forty",
-			"50": "fifty",
-			"60": "sixty",
-			"70": "seventy",
-			"80": "eight",
-			"90": "ninty"*/
+			"19": "nineteen"
 		}
 
 		var numberNameObjectTens = {
@@ -88,21 +103,18 @@ var moneyWords = function (){
 							integerString = integerString + " hundred "
 						}
 
-						if(x>= 3 && x <= 5){
+						if(x===3){
 							integerString = integerString + " thousand ";
-						}else if(x>=6 && x<= 9){
+						}else if(x===6){
 							integerString =integerString + " million ";
 						}
-
-
 					}
 				}else{
 					integerString = "zero";
 				}
-
 				return integerString + " and " + decimalPart + "/100 dollars";
 			}
 		}
 }();
 
-console.log(moneyWords(2345.62));
+console.log(moneyWords(3525234));
