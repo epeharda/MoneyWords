@@ -79,7 +79,7 @@ var moneyWords = function (){
 				var numParts = num.split(".");
 				var decimalPart = numParts[1];
 				var integerPartArray = numParts[0].split("").reverse();
-				if(integerPartArray.length>=1){
+				if(integerPartArray.length>1){
 					//looping from top to bottom since I reversed the array
 					for(var x = integerPartArray.length - 1; x >= 0; x --){
 						//handling tens and ones in each subset of place values
