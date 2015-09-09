@@ -124,7 +124,6 @@ var moneyWords = function (){
 					integerString = "zero";
 				}
 				return integerString.charAt(0).toUpperCase() + integerString.slice(1);
-				//integerString + " and " + decimalPart + "/100 dollars";
 			}
 		}
 }();
