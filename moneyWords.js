@@ -28,15 +28,12 @@ Problem Selected:
 	     to "Two thousand five hundred twenty-three and 04/100 dollars"
 */
 
-
-/*
-I chose a closure so that I could avoid the global namespace since I have some variables 
-that would be accessible to just my function
-*/
 'use strict'
 
+/*
+I chose a closure so that I could avoid the global namespace.
+*/
 var moneyWords = function (){
-
 		//to be used for the ones and ten (teens) digits
 		var numberNameObject = {
 			"1": "one",
@@ -67,11 +64,9 @@ var moneyWords = function (){
 			"5": "fifty",
 			"6": "sixty",
 			"7": "seventy",
-			"8": "eight",
-			"9": "ninty"
+			"8": "eighty",
+			"9": "ninety"
 		};
-
-
 
 		return function(inputNum){
 			var integerString = "";
@@ -142,3 +137,4 @@ console.log("Testing input 0: " + moneyWords(0));
 console.log("Testing input 1000000000000: " + moneyWords(1000000000000));
 console.log("Testing input -3: "+ moneyWords(-3));
 console.log("Testing input 5234.1: " + moneyWords(5234.1));
+console.log("Testing input 1,234.1: " + moneyWords("1,234.1"));
