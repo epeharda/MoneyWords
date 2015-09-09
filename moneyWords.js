@@ -1,32 +1,43 @@
 /*
 Author: Erica Peharda
 Date: September 9th, 2015
-Comments: I chose to write this code in JavaScript.  I have included comments to explain my thought process throughout most of the code but would be happy to clarify any questions when I walk through the file with other developers.  Thank you for your time and consideration.
+Comments: I chose to write this code in JavaScript.  I have included comments to explain 
+	my thought process throughout most of the code but would be happy to clarify any questions 
+	when I walk through the file with other developers.  Thank you for your time and 
+	consideration.
 
 Assumptions:
 	1) We are accepting numbers in US dollar format without commas.
-	2) I will go as far as the hundred million place value.  Assuming this situation is for creating personalized checks and above a million would likely be a rare case- but can easily be added if necessary.
+	2) I will go as far as the hundred million place value, 
+	   assuming this situation is for creating personalized checks and 
+	   above a million would likely be a rare case- but can easily be added 
+	   if necessary.
+	3) We are using JavaScript 1.8.5 (ECMAScript Version 5) which includes the 
+	   'use strict' directive.
 */
 
 
 /*
-Exercise 1
-Write some code that will accept an amount and convert it to the appropriate string representation.
-					
-Example: 
-Convert 2523.04 
-     to "Two thousand five hundred twenty-three and 04/100 dollars"
+Problem Selected:
+	Exercise 1
+	Write some code that will accept an amount and convert it to the 
+	appropriate string representation.
+						
+	Example: 
+	Convert 2523.04 
+	     to "Two thousand five hundred twenty-three and 04/100 dollars"
 */
 
 
-/*I chose a closure so that I could avoid the global namespace and have some variables that 
-would be accessible to just my function*/
+/*
+I chose a closure so that I could avoid the global namespace since I have some variables 
+that would be accessible to just my function
+*/
+'use strict'
+
 var moneyWords = function (){
 
-		//I'm using an object for the languages to use for the number name syntax
-		//originally I used separate arrays for each piece of the object below, but it became
-		//cumbersome and hard to keep track of.  I wrote the object below with readiblity for other
-		//developers in mind.
+		//to be used for the ones and ten (teens) digits
 		var numberNameObject = {
 			"1": "one",
 			"2": "two",
@@ -47,8 +58,8 @@ var moneyWords = function (){
 			"17": "seventeen",
 			"18": "eighteen",
 			"19": "nineteen"
-		}
-
+		};
+		//to be used for the tens digits above the teens
 		var numberNameObjectTens = {
 			"2": "twenty",
 			"3": "thirty",
@@ -58,58 +69,63 @@ var moneyWords = function (){
 			"7": "seventy",
 			"8": "eight",
 			"9": "ninty"
-		}
+		};
 
-		var integerString = "";
+
+
 		return function(inputNum){
+			var integerString = "";
 
-			if(isNaN(inputNum)){
-			//check if input is a number
+			if(typeof inputNum !== "number"){
 				return "Please enter your number in numeric format without commas or letters.  For example 20632.2 works well.";
-			}else if(inputNum >= 1000000000){
-			//checking if input is less than one billion	
-				return "Please enter a number that is less than one billion";
-			}else{
-			//this code runs when both the above conditions are met
+			
+			}else if(inputNum >= 1000000000 || inputNum < 0){
+				return "Please enter a positive number that is less than one billion";
 
-				//rounds to two decimals or inserts decimals if none were supplied
+			}else{
 				var num = inputNum.toFixed(2);
-				console.log("rounded number is " + num);
 				//I intentionally use the .split method so that the return values will be strings
 				var numParts = num.split(".");
 				var decimalPart = numParts[1];
 				var integerPartArray = numParts[0].split("").reverse();
+
 				if(integerPartArray.length>1){
-					//looping from top to bottom since I reversed the array
 					for(var x = integerPartArray.length - 1; x >= 0; x --){
-						//handling tens and ones in each subset of place values
+						//if-else statement handles tens and ones in each subset of place values
 						if(x===1| x===4|x===7){
 							if(integerPartArray[x]==="1"){
 								integerString = integerString + numberNameObject[integerPartArray[x]+""+integerPartArray[x-1]];
+							
 							}else if(integerPartArray[x]==="0"){
 								integerString =  integerString + numberNameObject[integerPartArray[x-1]];
+							
 							}else{
 								integerString = integerString + numberNameObjectTens[integerPartArray[x]] + "-" + numberNameObject[integerPartArray[x-1]];
+							
 							}
 							//decrementing since we took two digits into account
 							x = x -1;
+
 						}else{
-							//this would be for x === 2, 5, or 8 
-							integerString = integerString + numberNameObject[integerPartArray[x]];
+								integerString = integerString + numberNameObject[integerPartArray[x]];
+
 						}
 
-						//now we are adding the ending values such as hundred, million, thousand, hundred-thousand, etc
-						if(x===5 || x ===8 || x===2){
+						//handling adding the ending values such as hundred, million, thousand, hundred-thousand, etc
+						if(x===2 || x ===5 || x===8){
 							integerString = integerString + " hundred "
 						}
 
 						if(x===3){
 							integerString = integerString + " thousand ";
+
 						}else if(x===6){
 							integerString =integerString + " million ";
+
 						}
 					}
 				}else{
+					//this is in the case that there is no integer dollar amount
 					integerString = "zero";
 				}
 				return integerString + " and " + decimalPart + "/100 dollars";
@@ -117,4 +133,12 @@ var moneyWords = function (){
 		}
 }();
 
-console.log(moneyWords(3525234));
+
+//below is for testing (I ran this from the terminal using node)
+console.log("Testing input 3525234.13342: " + moneyWords(3525234.13342));
+console.log("Testing input \"402.251\": " + moneyWords("402.251"));
+console.log("Testing input \"13fdsa\": " + moneyWords("13fdsa"));
+console.log("Testing input 0: " + moneyWords(0));
+console.log("Testing input 1000000000000: " + moneyWords(1000000000000));
+console.log("Testing input -3: "+ moneyWords(-3));
+console.log("Testing input 5234.1: " + moneyWords(5234.1));
