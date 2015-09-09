@@ -123,7 +123,8 @@ var moneyWords = function (){
 					//this is in the case that there is no integer dollar amount
 					integerString = "zero";
 				}
-				return integerString + " and " + decimalPart + "/100 dollars";
+				return integerString.charAt(0).toUpperCase() + integerString.slice(1);
+				//integerString + " and " + decimalPart + "/100 dollars";
 			}
 		}
 }();
