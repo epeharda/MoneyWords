@@ -119,9 +119,12 @@ var moneyWords = function (){
 
 						}
 					}
+				}else if(integerPartArray[0]!=="0"){
+					integerString = numberNameObject[integerPartArray[0]];
+
 				}else{
 					//this is in the case that there is no integer dollar amount
-					integerString = "zero";
+					integerString = "zero";					
 				}
 				return integerString.charAt(0).toUpperCase() + integerString.slice(1) + " and " + decimalPart + "/100 dollars";
 			}
@@ -133,8 +136,10 @@ var moneyWords = function (){
 console.log("Testing input 3525234.13342: " + moneyWords(3525234.13342));
 console.log("Testing input \"402.251\": " + moneyWords("402.251"));
 console.log("Testing input \"13fdsa\": " + moneyWords("13fdsa"));
+console.log("Testing input 5: " + moneyWords(5));
 console.log("Testing input 0: " + moneyWords(0));
 console.log("Testing input 1000000000000: " + moneyWords(1000000000000));
 console.log("Testing input -3: "+ moneyWords(-3));
 console.log("Testing input 5234.1: " + moneyWords(5234.1));
 console.log("Testing input 1,234.1: " + moneyWords("1,234.1"));
+console.log("Testing input 539292234.1: " + moneyWords(539292234.1));
