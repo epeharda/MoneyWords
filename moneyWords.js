@@ -36,6 +36,7 @@ I chose a closure so that I could avoid the global namespace.
 var moneyWords = function (){
 		//to be used for the ones and ten (teens) digits
 		var numberNameObject = {
+			"0": "",
 			"1": "one",
 			"2": "two",
 			"3": "three",
@@ -95,7 +96,10 @@ var moneyWords = function (){
 								integerString =  integerString + numberNameObject[integerPartArray[x-1]];
 							
 							}else{
-								integerString = integerString + numberNameObjectTens[integerPartArray[x]] + "-" + numberNameObject[integerPartArray[x-1]];
+								integerString = integerString + numberNameObjectTens[integerPartArray[x]];
+								if(integerPartArray[x-1]!=="0"){
+									integerString = integerString + "-" + numberNameObject[integerPartArray[x-1]];
+								}
 							
 							}
 							//decrementing since we took two digits into account
@@ -107,7 +111,7 @@ var moneyWords = function (){
 						}
 
 						//handling adding the ending values such as hundred, million, thousand, hundred-thousand, etc
-						if(x===2 || x ===5 || x===8){
+						if((x===2 || x ===5 || x===8) && integerPartArray[x] !== "0"){
 							integerString = integerString + " hundred "
 						}
 
