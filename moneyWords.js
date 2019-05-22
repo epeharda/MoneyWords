@@ -1,5 +1,5 @@
 /*
-Author: Erica Peharda
+Author: Erica McDevitt
 Date: September 9th, 2015
 Comments: I chose to write this code in JavaScript.  I have included comments to explain 
 	my thought process throughout most of the code but would be happy to clarify any questions 
@@ -23,7 +23,7 @@ Problem Selected:
 	Write some code that will accept an amount and convert it to the 
 	appropriate string representation.
 						
-	Example: 
+	Example:inserting some words 
 	Convert 2523.04 
 	     to "Two thousand five hundred twenty-three and 04/100 dollars"
 */
